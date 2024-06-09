@@ -1,0 +1,92 @@
+
+What is Node.js?
+= env to run JS outside browser
+- every browser needs an engine. In case of chrome, it is Chrome. Chrome's engine is called V8. Node is built on top of it
+- node provides a big community
+
+Browser vs Server
+- in node.js, there is no DOM, no geolocation api, no fetch
+- instead, we have access to the filesystem, respond to network requests etc
+- a node app only depends on the node version we use, not on the user's browser
+
+REPL
+repl = read, evaluate, print, loop
+- to use the repl, start the terminal and type in: "node" (it resembles the console in the browser)
+- however, for serious coding, run a cli executable
+
+Globals
+- in vanilla JS, we have access to the window-obj which has properties like the document obj or the addEventListener method
+- in node, there is window-obj because there is no browser. However, there are still variables that can be accessed from everywhere: __dirname (current directory), __filename, require, module (=info about current module), process etc etc
+
+First module
+- a module contains encapsulated code and ideally only shares a minimum of it
+- in CommonJS, every file is a module
+- console.log(module) will print several properties of the module obj. E.g. it will list the exports
+- to export variables: module.exports = { var1, var2, ...};
+- to import:  const ObjOfImportedVars = require('./pathOfModule'); always use './' for own modules! use a simple string without ./ for third-party modules (need to be installed) and built-in modules (are preinstalled)
+
+Alternative syntax:
+- module.exports.varName = 130;     exporting while declaring a variable
+- module.exports.aliasName = oldNameForVar  exporting while aliasing a variable  
+
+- when importing a module by "require(./...)", the module will be automatically executed
+
+OS Module:
+- when importing built-in modules, do not use ./   in "require"
+- const os = require("os");
+- console.log(os.userInfo()) will display infos like thom245
+- console.log(os.upTime()) will display infos about how long the computer has been running
+
+PATH Module:
+- const path = require("path");
+- path.sep  will display "/" as the separator of the platform
+- path.join will link provided parts that will form a normalized path (removing any unnecessary "/")
+- path.basename will display the end of a provided path
+- path.resolve() is able to link given parts that form a link 
+
+FS Sync Module:
+- require("fs")
+- readFileSync("./pathToTxtFile", "utf8") will display the content of the txt file
+- writeFileSync("./pathToTxtFile", "string of the txt file") will write to a txt file (and overwrite)
+- for appending to a txt file: {flag:"a"}  as a third argument
+
+FS Async Module:
+- also (!) require("fs")
+- readFile("./pathToFile", "utf8", (err, result) => {})  will try to read the given file; its content will be stored in "result"
+- writeFile("./pathToFile", `string to be saved`, (err, result) => {}) will try to write to given file
+- this approach might easily lead to callback hell (bad)
+
+Sync vs Async:
+- difference between sync and async. sync might lead to bad performance
+- using callback leads to hard-to-read code. Better use async/await
+
+http:
+const http = require("http");
+http.createServer() 
+- when starting the file that contains the line above, the file will not quit because a server performs the function of always running
+- we can only specify a single response to a given request. Otherwise we will produce a bug
+
+NPM info:
+npm enables us to
+- use our own code in other projects
+- use code written by other devs
+- share our own solutions with other devs
+
+package = module = dependency in JS context
+npm does not include quality checks. The number of downloads serves as a measure, though
+when installing node, npm is automatically installed, too.
+
+npm commands:
+- npm install <packagename>   will install a package locally: it can only be used in the current project (preferred)
+- npm install -g <packagename> will install a package globally: it can be used in any project 
+
+First Packages and package.json
+- package.json is a configuration file used in Node.js projects to manage the project's dependencies, scripts, version, and metadata
+- a package.json file is created by "npm init"
+- when installing our first dependency, a node_modules folder is created
+- in the package.json file, the new dependency is listed
+- the necessary dependencies of a dependency are automatically installed
+- unlike built-in or our own modules, external modules have to be installed before using them via "require"
+
+Share code on Github
+- never push the entire codebase to github (with all the dependencies), just the code you wrote
