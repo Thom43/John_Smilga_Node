@@ -89,4 +89,4 @@ First Packages and package.json
 - unlike built-in or our own modules, external modules have to be installed before using them via "require"
 
 Share code on Github
-- never push the entire codebase to github (with all the dependencies), just the code you wrote
+- never push the entire codebase to github (with all the dependencies; they are too big!), just the code you wrote
